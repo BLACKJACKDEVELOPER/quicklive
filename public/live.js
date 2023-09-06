@@ -16,7 +16,7 @@ async function live() {
         document.getElementById('video').srcObject = event.stream
     });
     // empty mediastream
-    const video = await navigator.mediaDevices.getDisplayMedia({video:true})
+    const video = await navigator.mediaDevices.getUserMedia({video:true})
     await mpeer.addStream(video)
     const offer = await mpeer.createOffer();
     await mpeer.setLocalDescription(offer)
