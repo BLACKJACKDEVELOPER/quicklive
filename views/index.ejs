@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #background-video {
+        object-fit: cover;
+        position: fixed;
+        left: 50%;
+        right: 0;
+        top: 50%;
+        bottom: 0;
+        z-index: -1;
+    }
+    .game {
+        transition: 0.2s;
+        animation-name: ani;
+        animation-duration: 1.5s;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
+    }
+    .game:hover {
+        animation-name: none;
+    }
+@keyframes ani {
+    0% {
+        transform: translate(0px,-10px);
+    }
+    50% {
+        transform: translate(0px,0px);
+    }
+    100%{
+        transform: translate(0px,-10px);
+    }
+}    
+</style>
+
+<body class="bg-light">
+    <%- include("header"); %>
+
+        <video id="background-video" autoplay loop muted poster="https://assets.codepen.io/6093409/river.jpg">
+            <source src="bg.mp4" type="video/mp4">
+        </video>
+
+        <form method="POST" action="redirect" class="w-50 m-auto mt-5">
+            <h2 align="center" class="text-white">QuickLive</h2>
+            <br>
+            <input required name="UUID" class="form-control border-3" type="text" placeholder="Enter UUID of stream">
+            <div class="mt-3" align="center">
+                <button class="btn btn-light" style="width:15%;">ดูสตรีม</button>
+                <a href="createLive" class="btn btn-outline-light" style="width:15%;">สร้างสตรีม</a>
+            </div>
+        </form>
+
+        <div class="mt-5 w-50 m-auto list" style="border-top:2px solid #0101;">
+            <div class="game">
+                <img src="pubg.jpg" alt="">
+            </div>
+            <div class="game">
+                <img src="apex.jpeg" alt="">
+            </div>
+            <div class="game">
+                <img src="minecraft.jpg" alt="">
+            </div>
+            <div class="game">
+                <img src="rov.jpeg" alt="">
+            </div>
+            <div class="game">
+                <img src="fifa.jpg" alt="">
+            </div>
+            <div class="game">
+                <img src="final.jpeg" alt="">
+            </div>
+            <div class="game">
+                <img src="pb.jpg" alt="">
+            </div>
+            <div class="game">
+                <img src="witch.jpg" alt="">
+            </div>
+            <div class="game">
+                <img src="star.jpg" alt="">
+            </div>
+        </div>
+
+
+
+</body>
+<script src="main.js"></script>
+
+</html>

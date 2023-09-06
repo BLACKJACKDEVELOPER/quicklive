@@ -1,0 +1,47 @@
+.game {
+    width: 100%;
+}
+.game > img {
+    width: 100%;
+    border-radius: 10px;
+    transition: 0.2s;
+}
+
+.list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2%;
+}
+
+@media only screen and (max-width: 830px) {
+    .list {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2%;
+    }
+    button , a {
+        width: 50% !important;
+        margin: 2%;
+    }
+}
+
+
+/* CSS */
+* {
+    margin: 0; padding: 0;
+  }
+   
+  #container {
+    overflow: hidden;
+    height: 400px;
+    background: #edeae8;
+    position: relative;
+    z-index: -999;
+  }
+   
+  video {
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    height: 100%;
+  }

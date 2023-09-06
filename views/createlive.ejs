@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CREATE LIVE</title>
+</head>
+<style>
+    video {
+        width: 60%;
+        height: 70% !important;
+        position: absolute !important;
+        object-fit: cover;
+        box-shadow: 0px 0px 5px #000;
+    }
+
+    @media only screen and (max-width: 600px) {
+        body {
+            background-color: rgb(255, 0, 0) !important;
+        }
+    }
+</style>
+
+<body class="bg-light">
+    <%- include("header.ejs"); %>
+
+
+        <div class="d-flex flex-row justify-content-center align-items-center">
+            <video playsinline autoplay loop id="video">
+                <source src="load.mp4" type="video/mp4">
+            </video>
+        </div>
+        <br><br><br>
+        <div style="display: flex;justify-content: center;align-items: center;" class="w-50 m-auto">
+            <i onclick="exe.camera(this)" class="fa-solid fa-video"
+                style="color: #ffffff;background-color: #000;border-radius: 50%;width: 30px;height: 30px;align-items: center;justify-content: center;display: flex;"></i>
+            |<i onclick="exe.display(this)" class="fa-solid fa-display"
+                style="color: #ffffff;background-color: #000;border-radius: 50%;width: 30px;height: 30px;align-items: center;justify-content: center;display: flex;"></i>
+        </div>
+
+        <div>
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            <center>
+                <div style="width:60%;margin-bottom:1%;display:flex;justify-content: center;align-items: stretch;">
+                    <input id="link"
+                        style="border-color: #212529 !important;border-style: solid !important;border-width: 3px !important;width:100%;padding:1%;"
+                        readonly type="text" value="https://localhost:3000/live?UUID=<%= UUID %>">
+                    <button type="button" onclick="copy(this)" style="border-radius: 0px !important;"
+                        class="btn btn-dark">COPY</button>
+                </div>
+                <div class="chat"
+                    style="display:flex;flex-direction: column;justify-content: space-between;width:60%;border: 1px solid #000;background-color: #0101;height: 700px;padding: 0px;">
+                    <p class="bg-dark w-100 text-light p-1 d-flex flex-row justify-content-center align-items-center">
+                        แชทสด<i class="fa-solid fa-circle ms-2" style="color: #ff0000;"></i></p>
+
+                        <div style="display: flex;justify-content: space-between;">
+                            <input placeholder="ส่งข้อความ" style="border-style: solid !important;width:100%;border-width: 2px;border-color: #212529;" type="text">
+                            <button class="btn btn-dark" style="border-radius: 0px !important;">SEND</button>
+                        </div>
+                </div>
+            </center>
+        </div>
+
+
+
+</body>
+<script src="createlive.js"></script>
+<script>const exe = start('<%= UUID %>')</script>
+</html>
