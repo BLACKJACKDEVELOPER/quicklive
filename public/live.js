@@ -17,6 +17,7 @@ async function live() {
         simple.onloadeddata = async function() {
             simple.setAttribute("controls","")
             simple.poster = "play.jpg"
+            simple.play()
         };
         document.getElementById('video').srcObject = event.streams[0]
     });
