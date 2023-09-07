@@ -37,7 +37,7 @@ function start(UUID) {
 
     // video configuration
     const vconifg = {
-        audio: false,
+        audio: true,
         video: {
             width: 1280,
             height: 720
