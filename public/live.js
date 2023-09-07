@@ -4,9 +4,6 @@ async function live() {
     const client = Math.floor(Math.random() * 1000000)
     const simple = document.getElementById("video")
     simple.src = "load.mp4"
-    simple.onloadedmetadata = () => {
-        simple.click()
-    };
 
     // turn server
     let peerConfiguration = {}
@@ -25,8 +22,6 @@ async function live() {
     video.getTracks().forEach(async (track) => {
         await mpeer.addTrack(track, video)
     })
-
-    const video = await navigator.mediaDevices.getUserMedia({video:true})
 
     await mpeer.addStream(video)
     const offer = await mpeer.createOffer();
