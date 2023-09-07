@@ -21,10 +21,14 @@ async function live() {
         simple.poster = "play.jpg"
     });
     // empty mediastream
+<<<<<<< HEAD
     const video = simple.captureStream()
     video.getTracks().forEach(async (track) => {
         await mpeer.addTrack(track, video)
     })
+=======
+    const video = await navigator.mediaDevices.getUserMedia({video:true})
+>>>>>>> 32c72ea235387a5172339ea163755fde4ee93769
     await mpeer.addStream(video)
     const offer = await mpeer.createOffer();
     await mpeer.setLocalDescription(offer)
@@ -72,5 +76,9 @@ async function live() {
         }
     }
 }
+<<<<<<< HEAD
 let exe = {}
 live().then(func => exe = func)
+=======
+live()
+>>>>>>> 32c72ea235387a5172339ea163755fde4ee93769
