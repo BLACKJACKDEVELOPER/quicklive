@@ -16,6 +16,7 @@ async function live() {
     mpeer.addEventListener("track", (event) => {
         simple.onloadeddata = async function() {
             simple.setAttribute("controls","")
+            simple.setAttribute("autoplay","")
             simple.poster = "play.jpg"
             simple.play()
         };
