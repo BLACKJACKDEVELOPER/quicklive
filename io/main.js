@@ -25,6 +25,12 @@ io.on('connection', (socket) => {
         io.emit('setICE'+(data.UUID || data.client),data)
     })
 
+    // message
+    socket.on("msg",async (data)=> {
+        // spread traffic message
+        io.emit("send"+data.UUID,{ msg:data.msg })
+    })
+
     socket.on('disconnect', () => { 
         console.log('user disconnected');
     });
