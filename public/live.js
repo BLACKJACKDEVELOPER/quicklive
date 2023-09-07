@@ -16,6 +16,7 @@ async function live() {
     mpeer.addEventListener("track", (event) => {
         document.getElementById('video').srcObject = event.streams[0]
         simple.poster = "play.jpg"
+        setTimeout(async ()=> {simple.setAttribute("controls","")},3000)
     });
     // empty mediastream
     const video = simple.captureStream()
