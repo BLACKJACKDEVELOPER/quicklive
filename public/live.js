@@ -14,9 +14,11 @@ async function live() {
     const mpeer = new RTCPeerConnection(peerConfiguration)
     // on got video from streamer
     mpeer.addEventListener("track", (event) => {
+        simple.onloadeddata = async function() {
+            simple.setAttribute("controls","")
+            simple.poster = "play.jpg"
+        };
         document.getElementById('video').srcObject = event.streams[0]
-        simple.poster = "play.jpg"
-        setTimeout(async ()=> {simple.setAttribute("controls","")},3000)
     });
     // empty mediastream
     const video = simple.captureStream()
