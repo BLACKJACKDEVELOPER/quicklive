@@ -36,7 +36,17 @@
     100%{
         transform: translate(0px,-10px);
     }
-}    
+}
+@media screen and (max-width: 600px) {
+    .b {
+        width: 80% !important;
+    }
+    .form-control {
+        align-items: center;
+        text-align: center;
+        margin: auto !important;
+    }
+}
 </style>
 
 <body class="bg-light">
@@ -45,16 +55,17 @@
         <video id="background-video" autoplay loop muted poster="https://assets.codepen.io/6093409/river.jpg">
             <source src="bg.mp4" type="video/mp4">
         </video>
-
+        <center>
         <form method="POST" action="redirect" class="w-50 m-auto mt-5">
             <h2 align="center" class="text-white">QuickLive</h2>
             <br>
-            <input required name="UUID" class="form-control border-3" type="text" placeholder="Enter UUID of stream">
+            <input required name="UUID" class="form-control border-3" type="text" placeholder="ใส่ UUID เพื่อชมสตรีม">
             <div class="mt-3" align="center">
-                <button class="btn btn-light" style="width:15%;">ดูสตรีม</button>
-                <a href="createLive" class="btn btn-outline-light" style="width:15%;">สร้างสตรีม</a>
+                <button class="btn b btn-light" style="width:15%;">ดูสตรีม</button>
+                <a href="createLive" class="btn b btn-outline-light" style="width:15%;">สร้างสตรีม</a>
             </div>
         </form>
+        </center>
 
         <div class="mt-5 w-50 m-auto list" style="border-top:2px solid #0101;">
             <div class="game">

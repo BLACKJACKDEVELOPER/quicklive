@@ -12,13 +12,19 @@ async function live() {
     peerConfiguration.iceServers = iceServers
 
     const mpeer = new RTCPeerConnection(peerConfiguration)
+    mpeer.onconnectionstatechange = ({currentTarget}) => {
+        if (currentTarget.iceConnectionState == "disconnected") {
+            simple.src = ""
+            simple.poster = "https://fakeimg.pl/600x400?text=Live+has+been+ended"
+            simple.controls = false
+        }
+    };
     // on got video from streamer
     mpeer.addEventListener("track", (event) => {
         simple.onloadeddata = async function() {
             simple.setAttribute("controls","")
             simple.setAttribute("autoplay","")
-            simple.poster = "play.jpg"
-            simple.play()
+            simple.poster = "https://fakeimg.pl/600x400?text=Click+me"
         };
         document.getElementById('video').srcObject = event.streams[0]
     });
@@ -54,7 +60,7 @@ async function live() {
     })
 
     // message incoming
-    const msgContent = document.querySelector("#chat")
+    const msgContent = document.querySelector("#chat-messages")
     socket.on("send"+UUID,async (data)=> {
         msgContent.innerHTML += 
         `
@@ -63,6 +69,7 @@ async function live() {
         <h5 class="bg-light p-1 rounded">${data.msg}</h5>
         </div>
         `
+        msgContent.scrollTop = msgContent.scrollHeight;
     })
 
     socket.emit('call', { UUID, offer, client })
@@ -78,3 +85,9 @@ async function live() {
 
 let exe = {}
 live().then(func => exe = func)
+// document.body.innerHTML = JSON.stringify(navigator.userAgentData.brands)
+Swal.fire({
+  icon: 'info',
+  title: 'แจ้งเตือน',
+  text: 'browser บ้างรุ่นอาจไม่รองรับฟีเจอร์บ้างประเภท ขอแนะนำให้ท่านเปลี่ยน browser เป็น Google Chrome , Safari , Firefox',
+})

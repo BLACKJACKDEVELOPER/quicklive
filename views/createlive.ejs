@@ -7,79 +7,197 @@
     <title>CREATE LIVE</title>
 </head>
 <style>
-    video {
-        width: 60%;
-        height: 70% !important;
-        position: absolute !important;
-        object-fit: cover;
-        box-shadow: 0px 0px 5px #000;
-    }
-
-    #chat::-webkit-scrollbar {
-        width: 0px;
-    }
-
-    #chat {
-        height: 620px !important;
-    }
-
-    @media only screen and (max-width: 600px) {
-        body {
-            background-color: rgb(255, 0, 0) !important;
+body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            padding: 5%;
+            touch-action: manipulation;
         }
-    }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            text-align: center;
+            background-color: #fff;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        video {
+            width: 100%;
+            max-height: 400px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            object-fit:cover;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .live-indicator {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 20px;
+            margin-top: 1%;
+        }
+
+        /* Button styles */
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Responsive layout */
+        @media screen and (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            video {
+                max-height: 300px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+
+            .button {
+                padding: 8px 16px;
+            }
+            .copy {
+                background-color: #3498db;
+                color: #fff;
+                border: none;
+                width: 40% !important;
+            }
+            .share {
+                margin-top: 5% !important;
+            }
+        }
+        #chat-container {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        #chat-messages {
+            overflow-y: scroll;
+            max-height: 200px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        #chat-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #send-button {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .device {
+            border: none;
+            padding: 1%;
+            border-radius: 10px;
+            background-color: #3498db;
+            color:#fff;
+            cursor: pointer;
+        }
+        #link {
+            width: 100%;
+            padding: 1%;
+            border-style: solid;
+            border-color:#0101;
+        }
+        .share {
+            margin-top: 1%;
+            display: flex;
+            justify-content: center;
+        }
+        .copy {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            width: 10%;
+        }
 </style>
 
 <body class="bg-light">
-    <%- include("header.ejs"); %>
+<script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
 
-
-        <div class="d-flex flex-row justify-content-center align-items-center">
-            <video playsinline autoplay loop id="video">
-                <source src="load.mp4" type="video/mp4">
-            </video>
-        </div>
-        <br><br><br>
-        <div style="display: flex;justify-content: center;align-items: center;" class="w-50 m-auto">
-            <i onclick="exe.camera(this)" class="fa-solid fa-video"
-                style="color: #ffffff;background-color: #000;border-radius: 50%;width: 30px;height: 30px;align-items: center;justify-content: center;display: flex;"></i>
-            |<i onclick="exe.display(this)" class="fa-solid fa-display"
-                style="color: #ffffff;background-color: #000;border-radius: 50%;width: 30px;height: 30px;align-items: center;justify-content: center;display: flex;"></i>
-        </div>
-
+<div class="container">
+        <h1>Welcome to the QuickLive</h1>
+        <p>ดูไลฟ์ของคุณข้างล่าง:</p>
+        <video id="video" autoplay poster="https://fakeimg.pl/600x400?text=QuickLive">
+        </video>
+        <div class="live-indicator">เลือกการแสดงผล กล้อง หรือ หน้าจอ ข้างล่าง</div>
         <div>
-            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-            <center>
-                <div style="width:60%;margin-bottom:1%;display:flex;justify-content: center;align-items: stretch;">
-                    <input id="link"
-                        style="border-color: #212529 !important;border-style: solid !important;border-width: 3px !important;width:100%;padding:1%;"
-                        readonly type="text">
-                    <button type="button" onclick="copy(this)" style="border-radius: 0px !important;"
-                        class="btn btn-dark">COPY</button>
-                </div>
-                <div class="chat"
-                    style="display:flex;flex-direction: column;justify-content: space-between;width:60%;border: 1px solid #000;background-color: #0101;height: 700px;padding: 0px;">
-                    <div>
-                        <p
-                            class="bg-dark w-100 text-light p-1 d-flex flex-row justify-content-center align-items-center">
-                            แชทสด<i class="fa-solid fa-circle ms-2" style="color: #ff0000;"></i></p>
-                        <div style="overflow: scroll;" id="chat">
-                        </div>
-                    </div>
-
-                    <div style="display: flex;justify-content: space-between;">
-                        <input placeholder="ส่งข้อความ"
-                            style="border-style: solid !important;width:100%;border-width: 2px;border-color: #212529;"
-                            type="text">
-                        <button onclick="exe.send()" class="btn btn-dark" style="border-radius: 0px !important;">SEND</button>
-                    </div>
-                </div>
-            </center>
+            <button class="device" onclick="exe.camera(this)">กล้อง</button>
+            <button class="device" onclick="exe.display(this)">หน้าจอ</button>
         </div>
+    </div>
 
+    <!-- Link Share -->
+    <br>
+    <div class="container">
+        <p>แชร์ลิงก์ไลฟ์ของคุณให้กับผู้ชม</p>
+        <div class="share">
+            <input type="" id="link" readonly name="">
+            <button class="copy" onclick="copy(this)">คัดลอก</button>
+        </div>
+    </div>
+    <br>
+    <!-- Live Chat -->
+    <div id="chat" class="container">
+        <h2>Live Chat</h2>
+        <div id="chat-messages"></div>
+        <input type="text" id="chat-input" placeholder="Type your message...">
+        <button id="send-button" onclick="exe.send()">Send</button>
+    </div>
 
 
 </body>
+
 <script src="createlive.js"></script>
 <script>const exe = start('<%= UUID %>')</script>
 </html>

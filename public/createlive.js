@@ -45,8 +45,7 @@ function start(UUID) {
     }
 
     // message incoming
-    const msgContent = document.querySelector("#chat")
-    console.log(msgContent)
+    const msgContent = document.querySelector("#chat-messages")
     socket.on("send"+UUID,async (data)=> {
         msgContent.innerHTML += 
         `
@@ -55,6 +54,7 @@ function start(UUID) {
         <h5 class="bg-light p-1 rounded">${data.msg}</h5>
         </div>
         `
+        msgContent.scrollTop = msgContent.scrollHeight;
     })
     
     return {
@@ -67,12 +67,12 @@ function start(UUID) {
                     playing = video.getTracks()
                 } else {
                     playing[0].stop()
-                    target.style.backgroundColor = '#000';
+                    target.style.backgroundColor = '#3498db';
                     playing = true;
                     video_.src = 'load.mp4'
                 }
             } catch (e) {
-                alert('อุปกรณ์ไม่รองรับ')
+                alert(e.message)
             }
         },
         async display(target) {
@@ -84,7 +84,7 @@ function start(UUID) {
                     playing = video.getTracks()
                 } else {
                     playing[0].stop()
-                    target.style.backgroundColor = '#000';
+                    target.style.backgroundColor = '#3498db';
                     playing = true;
                     video_.src = 'load.mp4'
                 }
@@ -106,5 +106,5 @@ async function copy(target) {
     const input = document.getElementById('link')
     input.select();
     navigator.clipboard.writeText(input.value)   
-    target.innerHTML = 'COPIED'
+    target.innerHTML = 'คัดลอกแล้ว'
 }
